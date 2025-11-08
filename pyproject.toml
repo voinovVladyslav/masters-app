@@ -7,3 +7,24 @@ requires-python = ">=3.13"
 dependencies = [
     "django>=5.2.7",
 ]
+[tool.ruff]
+line-length = 80
+exclude = [
+    "venv",
+    ".vscode",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "**/migrations/**",
+]
+
+
+[tool.ruff.lint]
+extend-select = ["E501", "I", "N", "PT", "PL", "RUF"]
+ignore = ["PLC0415"]
+fixable = ["ALL"]
+
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"

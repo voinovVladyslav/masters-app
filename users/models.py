@@ -18,23 +18,22 @@ class UserManager(BaseUserManager):
     def create_user(
         self, email: str, password: str | None = None, **extra_fields
     ) -> 'User':
-        user: User = self.model(
-            email=self.normalize_email(email), **extra_fields
-        )
-        user.set_password(password)
-        user.full_clean()
-        user.save()
-        user.refresh_from_db()
-        return user
+        from users.services.crud import user_create
+
+        return user_create(email=email, password=password or '', **extra_fields)
 
     def create_superuser(
         self, email: str, password: str | None = None, **extra_fields
     ) -> 'User':
-        user = self.create_user(email, password)
-        user.is_staff = True
-        user.is_superuser = True
-        user.save()
-        return user
+        from users.services.crud import user_create
+
+        return user_create(
+            email=email,
+            password=password or '',
+            **extra_fields,
+            is_staff=True,
+            is_superuser=True,
+        )
 
 
 class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):

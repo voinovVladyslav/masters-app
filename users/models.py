@@ -37,7 +37,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(PermissionsMixin, TimeStampedModel, AbstractBaseUser):
+class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(blank=True, default='')
     last_name = models.CharField(blank=True, default='')

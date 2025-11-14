@@ -16,4 +16,5 @@ class Material(TimeStampedModel):
         on_delete=models.CASCADE,
         related_name='materials',
     )
+    order = models.PositiveSmallIntegerField(default=0)
     file = models.FileField(upload_to=material_upload_to)

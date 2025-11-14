@@ -10,5 +10,6 @@ class MaterialDisplaySerializer(serializers.ModelSerializer):
             'id',
             'theme',
             'name',
+            'order',
             'file',
         )

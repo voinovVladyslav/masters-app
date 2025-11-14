@@ -22,6 +22,14 @@ class Course(TimeStampedModel):
 
 
 class Theme(TimeStampedModel):
-    name = models.CharField(max_length=200, unique=True)
+    class Meta:
+        unique_together = (('name', 'course'),)
+
+    name = models.CharField(max_length=200)
     description = models.TextField(blank=True, default='')
     order = models.PositiveSmallIntegerField(default=0)
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name='themes',
+    )

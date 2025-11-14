@@ -1,10 +1,12 @@
+from uuid import uuid4
+
 from django.db import models
 
 from core.models import TimeStampedModel
 
 
 def material_upload_to(instance: 'Material', filename: str) -> str:
-    return 'files/'
+    return f'files/{uuid4().hex}_{filename}'
 
 
 class Material(TimeStampedModel):

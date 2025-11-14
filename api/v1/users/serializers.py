@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from users.models import User
-from users.services.crud import user_create
+from users.services.crud import user_create, user_update
 
 
 class UserDisplaySerializer(serializers.ModelSerializer):
@@ -27,3 +27,14 @@ class UserCreateSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return user_create(**validated_data)
+
+
+class UserUpdateSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=False)
+    password = serializers.CharField(required=False)
+    first_name = serializers.CharField(required=False)
+    last_name = serializers.CharField(required=False)
+    middle_name = serializers.CharField(required=False)
+
+    def update(self, instance, validated_data):
+        return user_update(user=instance, **validated_data)

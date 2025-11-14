@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.UserListApi.as_view(), name='user-list'),
     path('self/', views.UserSelfApi.as_view(), name='user-self'),
     path('create/', views.UserCreateApi.as_view(), name='user-create'),
+    path('<int:pk>/update/', views.UserUpdateApi.as_view(), name='user-update'),
 ]

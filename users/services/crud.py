@@ -1,3 +1,6 @@
+from typing import Any
+
+from core.services.crud import model_update
 from users.models import User, UserRole
 
 
@@ -30,4 +33,19 @@ def user_create(  # noqa: PLR0913
     user.full_clean()
     user.save()
     user.refresh_from_db()
+    return user
+
+
+def user_update(
+    *,
+    user: User,
+    **fields: Any,
+) -> User:
+    password = fields.pop('password', None)
+    user, updates = model_update(model=user, **fields)
+
+    if password is not None:
+        user.set_password(password)
+        user.save(update_fields=['password'])
+
     return user

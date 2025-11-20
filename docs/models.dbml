@@ -1,0 +1,50 @@
+table user {
+  id bigint [pk, increment]
+  created_at datetime
+  updated_at datetime
+
+  email varchar [unique, not null]
+  first_name varchar
+  last_name varchar
+  middle_name varchar
+  is_staff boolean
+  is_active boolean
+  role varchar(10) // student | teacher | admin
+
+  // django auth fields (abstractbaseuser, permissionsmixin)
+  password varchar
+  last_login datetime
+  is_superuser boolean
+}
+
+table course {
+  id bigint [pk, increment]
+  created_at datetime
+  updated_at datetime
+
+  name varchar(200) [unique, not null]
+  description text
+
+  owner_id bigint [ref: > user.id] // set null
+}
+
+table course_students { // m2m table
+  id bigint [pk, increment]
+  course_id bigint [not null, ref: > course.id]
+  user_id bigint [not null, ref: > user.id]
+}
+
+table theme {
+  id bigint [pk, increment]
+  created_at datetime
+  updated_at datetime
+
+  name varchar(200)
+  description text
+  order smallint
+  course_id bigint [not null, ref: > course.id]
+
+  indexes {
+    (name, course_id) [unique]
+  }
+}

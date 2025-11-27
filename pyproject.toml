@@ -32,3 +32,8 @@ fixable = ["ALL"]
 [tool.ruff.format]
 quote-style = "single"
 indent-style = "space"
+
+[dependency-groups]
+production = [
+    "gunicorn>=23.0.0",
+]
